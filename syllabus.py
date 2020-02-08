@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import chromedriver_binary
+import re
+
 
 results = []
 
@@ -27,7 +29,7 @@ result_url = driver.find_elements_by_class_name('link03')
 for a in result_url:
     results.append({
         'url':a.get_attribute('href'),
-        'title':a.text
+        'title':re.sub("○|△|\n.*", "", a.text)
     })
     
 for i in range(len(results)):
