@@ -6,6 +6,7 @@ import re
 
 results = []
 
+
 options = Options()
 options.add_argument('--headless')
 
@@ -33,9 +34,10 @@ while driver.find_element_by_xpath("/html/body/table[2]/tbody/tr/td/form[2]/inpu
     result_url = driver.find_elements_by_class_name('link03')
 
     for a in result_url:
+        tmp = re.sub("○|△|\n.*", "", a.text)
         results.append({
             'url':a.get_attribute('href'),
-            'title':re.sub("○|△|　|\n.*", "", a.text)
+            'title':re.sub("　", " ", tmp)
         })
         
     if(count != 1):
@@ -50,8 +52,8 @@ while driver.find_element_by_xpath("/html/body/table[2]/tbody/tr/td/form[2]/inpu
 
 driver.quit()
 
-# for i in range(len(results)):
-#     print(results[i]) 
+for i in range(len(results)):
+     print(results[i]) 
 
 
 
